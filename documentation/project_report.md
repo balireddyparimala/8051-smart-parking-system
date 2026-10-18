@@ -1,101 +1,62 @@
-# Smart Parking System Using 8051 Microcontroller
-
-**Author:** Parimala  
-**Microcontroller:** AT89C51  
-**Programming Language:** Embedded C  
-**Development Environment:** Keil µVision5  
-**Compiler:** Keil C51  
+# Project Report: Smart Parking System Using AT89C51
 
 ## 1. Abstract
+The Smart Parking System is a microcontroller-based demonstration that monitors parking occupancy and reports the number of occupied and available spaces. An AT89C51 (8051) reads entry and exit sensor inputs, updates a four-slot counter, displays the result on a 16x2 LCD, and turns on an LED when all slots are occupied. A digital control output is provided for interfacing with an external gate-driver circuit.
 
-The Smart Parking System is a microcontroller-based project designed
-to monitor parking-space availability and control vehicle entry and exit.
+## 2. Problem Statement
+Manual parking-space monitoring can cause unnecessary searching and poor utilization of limited parking capacity. A small automated counter can provide immediate occupancy information and demonstrate embedded-system principles.
 
-The AT89C51 microcontroller maintains the number of occupied parking
-spaces and displays the number of available spaces on a 16x2 LCD.
+## 3. Objectives
+- Count valid vehicle-entry and vehicle-exit events.
+- Prevent the count from exceeding the configured capacity or falling below zero.
+- Display free and occupied spaces on an LCD.
+- Indicate a full parking area using an LED.
+- Provide a control output for a separately driven gate interface.
 
-The project is being developed and documented using Embedded C and Keil
-µVision5.
+## 4. Hardware Requirements
+- AT89C51/8051 microcontroller and clock/reset circuitry
+- Two active-low sensor interfaces (entry and exit)
+- HD44780-compatible 16x2 LCD
+- LED and current-limiting resistor
+- External gate driver/actuator interface, if required
+- Regulated power supply, wiring, and common ground
 
-## 2. Objectives
+## 5. Software Requirements
+- Keil µVision with Keil C51 compiler
+- Embedded C source file
+- 8051 simulator or compatible hardware test setup
 
-- Monitor vehicle entry and exit.
-- Maintain the parking occupancy count.
-- Support a maximum of four parking spaces.
-- Display parking availability on an LCD.
-- Indicate when parking is full.
-- Prevent the occupancy count from exceeding the configured capacity.
+## 6. Working Principle
+At startup, occupancy is initialized to zero and available spaces to four. The firmware initializes the LCD and displays the initial status. When the entry sensor goes LOW, a debounced event increments occupancy only if the car park is not full. When the exit sensor goes LOW, occupancy decrements only if it is greater than zero. Available spaces are calculated as capacity minus occupancy. The full LED is ON when occupancy reaches the configured capacity. The gate-control output is activated for a delay after a valid entry or exit event.
 
-## 3. Hardware Components
+## 7. Pin Configuration
+- P1.0: entry sensor (active LOW)
+- P1.1: exit sensor (active LOW)
+- P2.0: LCD RS
+- P2.1: LCD Enable
+- P2.2: full indicator LED
+- P2.3: gate-driver logic output
+- P2.4–P2.7: LCD data D4–D7
+- LCD R/W: GND
 
-- AT89C51 microcontroller
-- 16x2 LCD
-- Two push buttons or suitable vehicle sensors
-- Four indicator LEDs
-- Current-limiting resistors
-- External pull-up resistors where required
-- Crystal oscillator and capacitors
-- Reset circuit
-- Regulated 5 V supply
+See `circuit/circuit_connections.md` for wiring and safety notes.
 
-## 4. Software Requirements
+## 8. Test Plan and Expected Results
+| Test | Action | Expected result |
+|---|---|---|
+| Initial state | Both sensors HIGH after reset | Occupied = 0, free = 4, LED OFF |
+| Entry | Pulse entry sensor LOW | Occupied increments by 1; free decrements by 1 |
+| Full capacity | Record four valid entries | Occupied = 4, free = 0, LED ON |
+| Entry when full | Pulse entry sensor LOW again | Count stays at 4; entry denied message shown |
+| Exit | Pulse exit sensor LOW with occupancy > 0 | Occupied decrements; free increments |
+| Exit when empty | Pulse exit sensor LOW at occupancy 0 | Count remains 0 |
 
-- Keil µVision5
-- Keil C51 compiler
-- Compatible circuit simulator for circuit-level testing
+## 9. Limitations
+- The entry and exit sensors must be positioned and calibrated so each vehicle produces one valid event.
+- The current firmware uses blocking software delays; sensor polling pauses during the gate delay.
+- The gate pin is a logic-level interface only; real actuators require a suitable driver and power arrangement.
+- Software delays and LCD timing depend on the actual clock and compiler settings.
+- This report describes expected behavior; measured hardware results should be added only after actual tests.
 
-## 5. Working Principle
-
-The system starts with four available parking spaces.
-
-When an entry input is activated, the controller checks whether a
-parking space is available. If capacity remains, the occupancy count
-increases and the entry indicator operates.
-
-When an exit input is activated, the controller checks whether at least
-one vehicle is present. If so, the occupancy count decreases and the
-exit indicator operates.
-
-The LCD displays the parking status and the number of available spaces.
-When all four spaces are occupied, the parking-full indicator is activated.
-
-## 6. Microcontroller Pin Assignments
-
-| Signal | AT89C51 Pin |
-|---|---|
-| Vehicle entry input | P1.0 |
-| Vehicle exit input | P1.1 |
-| Entry indicator | P2.0 |
-| Exit indicator | P2.1 |
-| Parking-full indicator | P2.2 |
-| Parking-available indicator | P2.3 |
-| LCD RS | P3.0 |
-| LCD Enable | P3.1 |
-| LCD data bus | P0.0-P0.7 |
-
-## 7. Development Status
-
-- Initial Embedded C source code created.
-- LCD routines incorporated.
-- Keil C51 compilation completed successfully.
-- HEX file generated.
-- Source code uploaded to GitHub.
-- Circuit connection documentation added.
-- Full circuit simulation and hardware operation remain to be verified.
-
-## 8. Future Enhancements
-
-- Simulate the complete circuit.
-- Integrate suitable vehicle-detection sensors.
-- Implement a physical or simulated entry gate.
-- Improve LCD messages and status updates.
-- Test all entry and exit conditions.
-- Add simulation screenshots and verified results.
-
-## 9. Conclusion
-
-This project demonstrates the development of a basic parking occupancy
-monitoring system using the AT89C51 microcontroller.
-
-The design provides a foundation for further development of an automated
-parking system with vehicle detection, display, and gate-control functions.
+## 10. Conclusion
+The project demonstrates basic embedded C programming, GPIO interfacing, LCD operation, state counting, and threshold-based indication using an 8051 microcontroller. Further development can include timer-based gate control, vehicle-presence interlocks, RFID access, and a more robust sensor-validation method.
