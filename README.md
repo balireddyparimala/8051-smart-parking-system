@@ -1,6 +1,6 @@
 # Smart Parking System Using 8051 Microcontroller
 
-**Author:** Parimala
+**Author:** Parimala Balireddy
 
 ## Project Overview
 
@@ -72,4 +72,4 @@ circuit has been simulated or verified.
 
 ## Author
 
-Parimala
+Parimala Balireddy
