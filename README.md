@@ -1,45 +1,75 @@
 # Smart Parking System Using 8051 Microcontroller
 
+**Author:** Parimala
+
 ## Project Overview
 
-This project aims to develop a simulation-based Smart Parking
-System using the 8051 microcontroller.
+This project implements a simulation-oriented Smart Parking System
+using the AT89C51 microcontroller and Embedded C.
 
-The system will detect vehicle entry and exit, count available
-parking spaces, display parking information on an LCD, and
-control the entry gate.
+The system is designed to monitor parking occupancy, display the
+number of available spaces, and indicate when the parking area is full.
 
 ## Objectives
 
-- To understand 8051 microcontroller programming.
-- To detect vehicle entry and exit.
-- To count available parking spaces.
-- To display parking status on an LCD.
-- To simulate the complete system using electronic circuit
-  simulation software.
+- Monitor vehicle entry and exit.
+- Track parking occupancy.
+- Support four parking spaces.
+- Display parking availability using a 16x2 LCD.
+- Indicate parking-full and parking-available status.
 
-## Components
+## Technologies Used
 
-- 8051 Microcontroller (AT89C51)
-- IR Sensors
-- 16x2 LCD Display
-- Servo Motor or Simulated Gate
-- LEDs
-- Supporting electronic components
+- AT89C51 microcontroller
+- Embedded C
+- Keil µVision5
+- Keil C51 compiler
+- 16x2 LCD
+- Push buttons or vehicle sensors
+- Indicator LEDs
 
-## Software
+## Repository Structure
 
-- Keil µVision
-- Proteus Design Suite
-- GitHub
+| Folder/File | Description |
+|---|---|
+| `source_code/` | 8051 C source code |
+| `hex/` | Compiled Intel HEX file |
+| `circuit/` | Circuit connection documentation |
+| `documentation/` | Project report |
+| `README.md` | Project overview |
 
-## Project Status
+## Source Code
 
-Initial development and repository setup.
+See [`source_code/smart_parking.c`](source_code/smart_parking.c).
 
-Source code, circuit diagrams, and simulation results will be
-added after implementation and testing.
+## Compiled Program
+
+See [`hex/SmartParking.hex`](hex/SmartParking.hex).
+
+## Circuit Connections
+
+See [`circuit/circuit_connections.md`](circuit/circuit_connections.md).
+
+## Project Report
+
+See [`documentation/project_report.md`](documentation/project_report.md).
+
+## Development Status
+
+- [x] Initial C source code created
+- [x] LCD routines added
+- [x] Compilation completed successfully
+- [x] HEX file generated
+- [x] Source code uploaded to GitHub
+- [x] Circuit documentation added
+- [x] Project report added
+- [ ] Complete circuit simulation
+- [ ] Verify LCD operation
+- [ ] Test all parking entry and exit conditions
+
+**Note:** Successful compilation does not establish that the complete
+circuit has been simulated or verified.
 
 ## Author
 
-B. parimala
+Parimala
