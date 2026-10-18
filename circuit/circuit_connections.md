@@ -1,71 +1,35 @@
-# Circuit Connections
+# Circuit Connections — Smart Parking System (AT89C51)
 
-## Project
-Smart Parking System Using AT89C51 Microcontroller
+## Pin map
 
-**Author:** Parimala
-
-## 1. Microcontroller
-
-- Microcontroller: AT89C51
-- Compiler: Keil C51
-- Supply voltage: +5 V
-
-## 2. Vehicle Sensors
-
-| Component | AT89C51 Pin | Function |
+| Function | AT89C51 pin/port | Connection / notes |
 |---|---|---|
-| Entry sensor | P1.0 | Detects vehicle entry |
-| Exit sensor | P1.1 | Detects vehicle exit |
+| Entry sensor output | P1.0 | Active LOW; HIGH when idle |
+| Exit sensor output | P1.1 | Active LOW; HIGH when idle |
+| LCD RS | P2.0 | HD44780 LCD RS |
+| LCD Enable | P2.1 | HD44780 LCD E |
+| Full indicator LED | P2.2 | Connect through a current-limiting resistor and suitable driver as needed |
+| Gate control logic | P2.3 | Logic signal to external driver; not a direct motor output |
+| LCD D4 | P2.4 | 4-bit LCD data |
+| LCD D5 | P2.5 | 4-bit LCD data |
+| LCD D6 | P2.6 | 4-bit LCD data |
+| LCD D7 | P2.7 | 4-bit LCD data |
+| LCD R/W | GND | Write-only mode |
+| LCD VSS / VDD | GND / regulated supply | Use the LCD module's rated supply |
+| LCD VO | Contrast potentiometer wiper | Potentiometer ends to supply and GND as appropriate |
+| AT89C51 reset/clock | RESET / XTAL1 / XTAL2 | Use a standard 8051 reset circuit and crystal/oscillator circuit |
 
-The inputs are active LOW in the current program.
+## Input sensor wiring
+The firmware expects each sensor input to idle HIGH and go LOW when a vehicle is detected. Use a suitable sensor module or switch interface with a defined logic level. Do not leave input pins floating. Confirm the sensor module output voltage is compatible with the 8051 supply.
 
-Push buttons can be used to represent the sensors during testing.
+## LED wiring
+Use a current-limiting resistor. Check the desired active polarity and current limits for the exact AT89C51 device and circuit. A transistor driver is recommended if the indicator current exceeds the pin's safe limits.
 
-## 3. LCD Connections
+## Gate actuator interface
+P2.3 becomes HIGH for approximately two seconds after a valid entry or exit event. This is a control signal, not sufficient drive for an actuator. Use a transistor/MOSFET/relay driver, flyback protection for inductive loads, and a separate correctly rated supply. A hobby servo needs a suitable servo pulse train (typically around 1–2 ms pulse width repeated about every 20 ms); this source does **not** generate a calibrated servo waveform. Do not connect a servo signal/power directly based on this pin alone.
 
-The project uses a standard 16x2 LCD in 8-bit mode.
-
-| LCD Pin | AT89C51 Connection |
-|---|---|
-| RS | P3.0 |
-| RW | Ground |
-| Enable | P3.1 |
-| D0-D7 | P0.0-P0.7 |
-| VSS | Ground |
-| VDD | +5 V |
-| V0 | Contrast adjustment |
-
-Port 0 requires appropriate external pull-up resistors.
-
-## 4. Indicator LEDs
-
-| LED | AT89C51 Pin | Function |
-|---|---|---|
-| Entry gate | P2.0 | Indicates entry gate operation |
-| Exit gate | P2.1 | Indicates exit gate operation |
-| Parking full | P2.2 | Indicates all spaces are occupied |
-| Parking available | P2.3 | Indicates available parking spaces |
-
-Use suitable current-limiting resistors for LEDs.
-
-## 5. Clock and Reset
-
-The AT89C51 requires appropriate clock and reset circuitry.
-
-The crystal oscillator, capacitors, reset network, and power connections must follow the microcontroller datasheet.
-
-## 6. Parking Capacity
-
-The current program is configured for four parking spaces.
-
-- Initial available spaces: 4
-- Maximum occupied spaces: 4
-- Entry is restricted when all spaces are occupied.
-- Exit decreases the occupied-space count.
-
-## 7. Simulation Status
-
-The source code has compiled successfully in Keil C51.
-
-Full circuit simulation and LCD operation remain to be verified in a compatible circuit simulator.
+## Power and grounding
+- Use a regulated supply appropriate for the exact MCU and LCD modules.
+- Share ground between the MCU, sensors, LCD, and driver logic.
+- Keep actuator power separate as appropriate and connect grounds according to the driver design.
+- Verify all pin numbers against the specific AT89C51 package datasheet before wiring.
