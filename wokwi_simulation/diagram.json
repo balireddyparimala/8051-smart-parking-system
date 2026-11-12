@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "author": "PARIMALA BALIREDDY",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-breadboard-mini", "id": "bb1", "top": 152.2, "left": 429.6, "attrs": {} },
+    { "type": "wokwi-arduino-uno", "id": "uno", "top": 163.8, "left": 85.8, "attrs": {} },
+    { "type": "wokwi-lcd1602", "id": "lcd1", "top": -150.17, "left": 54.4, "attrs": {} },
+    { "type": "wokwi-hc-sr04", "id": "ultrasonic1", "top": 1.5, "left": 571.9, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led1",
+      "top": 140.4,
+      "left": -15.4,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 234.35,
+      "left": -19.2,
+      "attrs": { "value": "220" }
+    },
+    { "type": "wokwi-servo", "id": "servo1", "top": -98, "left": -153.6, "attrs": {} },
+    { "type": "wokwi-hc-sr04", "id": "ultrasonic2", "top": -132.9, "left": 427.9, "attrs": {} }
+  ],
+  "connections": [
+    [ "ultrasonic2:TRIG", "uno:2", "green", [ "v172.8", "h-192.4" ] ],
+    [ "ultrasonic2:ECHO", "uno:3", "green", [ "v182.4", "h-212" ] ],
+    [ "ultrasonic1:TRIG", "uno:4", "green", [ "v38.4", "h-355.6" ] ],
+    [ "ultrasonic1:ECHO", "uno:5", "green", [ "v28.8", "h-365.6" ] ],
+    [ "lcd1:RS", "uno:12", "green", [ "v144", "h115.5" ] ],
+    [ "lcd1:E", "uno:11", "green", [ "v124.8", "h96" ] ],
+    [ "lcd1:D4", "uno:6", "green", [ "v153.6", "h96" ] ],
+    [ "lcd1:D5", "uno:7", "green", [ "v172.8", "h76.9" ] ],
+    [ "lcd1:D6", "uno:8", "green", [ "v163.2", "h57.8" ] ],
+    [ "lcd1:D7", "uno:9", "green", [ "v115.2", "h38.7" ] ],
+    [ "servo1:V+", "uno:5V", "red", [ "h-9.6", "v441.7", "h393.6" ] ],
+    [ "servo1:PWM", "uno:13", "green", [ "h-57.6", "v173", "h374.4" ] ],
+    [ "servo1:GND", "uno:GND.2", "black", [ "h-67.2", "v480", "h470.4" ] ],
+    [ "ultrasonic2:VCC", "uno:5V", "red", [ "v124.8", "h-124.8", "v326.4", "h-144" ] ],
+    [ "ultrasonic2:GND", "uno:GND.2", "black", [ "v182.4", "h104.4", "v268.8", "h-105.6" ] ],
+    [ "ultrasonic1:VCC", "uno:5V", "red", [ "v345.6", "h19.2" ] ],
+    [ "ultrasonic1:GND", "uno:GND.2", "black", [ "v374.4", "h-404.4" ] ],
+    [ "lcd1:VSS", "uno:GND.2", "black", [ "v67.2", "h-182.4", "v451.2", "h364.8" ] ],
+    [ "lcd1:VDD", "uno:5V", "red", [ "v115.2", "h-143.9", "v288", "h297.6" ] ],
+    [ "lcd1:V0", "uno:GND.2", "green", [ "v86.4", "h-173.1", "v355.2", "h345.6" ] ],
+    [ "lcd1:RW", "uno:GND.2", "green", [ "v96", "h-182.5", "v307.2", "h307.2" ] ],
+    [ "uno:10", "r1:2", "green", [ "v-38.4", "h-200.9" ] ],
+    [ "r1:1", "led1:A", "green", [ "v-28.8", "h28.8", "v-28.8" ] ],
+    [ "led1:C", "uno:GND.2", "green", [ "v9.6", "h-9.2", "v182.4", "h259.2" ] ]
+  ],
+  "dependencies": {}
+}
