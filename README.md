@@ -25,7 +25,32 @@ The system supports four parking spaces, displays parking availability on a 16×
 ### Simulation Environment
 - Wokwi Online Simulator
 - Arduino Uno R3
+## Live Wokwi Simulation
 
+**Project:** Smart Parking System  
+**Microcontroller:** Arduino Uno  
+**Simulation Platform:** Wokwi  
+**Programming Language:** Arduino C++  
+**Parking Capacity:** 4 Vehicles
+
+**Run the simulation:**
+
+https://wokwi.com/projects/480496077575254017
+
+### Simulation Features
+
+- Automatic vehicle entry and exit detection using HC-SR04 sensors.
+- Real-time parking availability displayed on a 16×2 LCD.
+- Four-slot parking occupancy management.
+- Parking-full indication using a red LED.
+- Entry denial when all parking spaces are occupied.
+- Automatic gate operation using a servo motor.
+
+### Simulation Status
+
+The Arduino-based Wokwi simulation has been implemented and functionally tested.
+
+The original AT89C51 source code and HEX file are preserved separately as reference artifacts. The Wokwi simulation does not execute the original 8051 firmware.
 ### Programming
 - Arduino C++
 
